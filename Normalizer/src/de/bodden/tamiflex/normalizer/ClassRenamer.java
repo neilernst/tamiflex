@@ -19,8 +19,9 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.commons.Remapper;
-import org.objectweb.asm.commons.RemappingClassAdapter;
-
+//import org.objectweb.asm.commons.RemappingClassAdapter;
+import org.objectweb.asm.commons.ClassRemapper;
+//import org.objectweb.asm.commons.RemappingStringConstantAdapter;
 /**
  * Provides functionality to rename references to generated classes, including fully-qualified
  * type names in String constants. 
@@ -51,7 +52,7 @@ public class ClassRenamer {
 	public static byte[] replaceClassNamesInBytes(final Map<String, String> fromTo,	byte[] classBytes) {
 		ClassReader creader = new ClassReader(classBytes);
     	ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-    	RemappingClassAdapter visitor = new RemappingClassAdapter(writer,new Remapper(){
+    	ClassRemapper visitor = new ClassRemapper(writer,new Remapper(){
     		//rename a type reference
     		@Override
     		public String map(String typeName) {

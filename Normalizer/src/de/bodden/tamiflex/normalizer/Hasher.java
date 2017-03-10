@@ -96,7 +96,7 @@ public class Hasher {
 				return mv;
     		}
     	};
-    	creader.accept(visitor, 0);
+    	creader.accept(visitor, ClassReader.EXPAND_FRAMES);
         byte[] renamed = writer.toByteArray();
 		////////
 		String hash = SHAHash.SHA1(renamed);

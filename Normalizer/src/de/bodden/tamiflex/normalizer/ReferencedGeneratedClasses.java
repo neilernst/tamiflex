@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.commons.EmptyVisitor;
+import de.bodden.tamiflex.normalizer.InfoClassVisitor;
 
 public class ReferencedGeneratedClasses {
 	
@@ -43,12 +43,12 @@ public class ReferencedGeneratedClasses {
 	}
 
 	/**
-	 * Returnes the slashed class names of all referenced generated classes, except for the declaring class itself.
+	 * Returns the slashed class names of all referenced generated classes, except for the declaring class itself.
 	 */
 	private static Set<String> namesOfGeneratedClassesReferenced(byte[] classBytes) {
 		final Set<String> res = new HashSet<String>();
 		ClassReader creader = new ClassReader(classBytes);
-		ReferencedClassesExtracter visitor = new ReferencedClassesExtracter(new EmptyVisitor(), res);
+		ReferencedClassesExtracter visitor = new ReferencedClassesExtracter(new InfoClassVisitor(), res);
         creader.accept(visitor, 0);
         
         //remove name of the declaring class
