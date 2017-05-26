@@ -37,7 +37,8 @@ public class ClassForNameTransformation extends AbstractTransformation {
 			public void visitInsn(int opcode) {
 				if (opcode == ARETURN) {
 					mv.visitVarInsn(ALOAD, 0); // Load Class instance
-					mv.visitMethodInsn(INVOKESTATIC, "de/bodden/tamiflex/playout/rt/ReflLogger", "classForName", "(Ljava/lang/String;)V");
+					mv.visitMethodInsn(INVOKESTATIC, "de/bodden/tamiflex/playout/rt/ReflLogger",
+                            "classForName", "(Ljava/lang/String;)V");
 				}
 				super.visitInsn(opcode);
 			}

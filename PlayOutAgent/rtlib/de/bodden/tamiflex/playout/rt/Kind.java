@@ -10,6 +10,8 @@
  ******************************************************************************/
 package de.bodden.tamiflex.playout.rt;
 
+import de.bodden.tamiflex.playout.transformation.method.GuiceBindMethodTransformation;
+
 public enum Kind {
 
 	ClassForName("Class.forName"),
@@ -40,8 +42,9 @@ public enum Kind {
 	FieldGetDeclaringClass("Field.getDeclaringClass"),
 	FieldGetModifiers("Field.getModifiers"),
 	FieldToGenericString("Field.toGenericString"),
-	FieldToString("Field.toString");
-	
+	FieldToString("Field.toString"),
+	GuiceBindMethod("Guice.bind");
+
 	private final String output;
 
 	Kind(String output) {

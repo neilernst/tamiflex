@@ -78,6 +78,7 @@ public class ClassDumper implements ClassFileTransformer {
 			Set<Entry<String, byte[]>> entrySet = classNameToBytes.entrySet();
 			for (Map.Entry<String, byte[]> entry: entrySet) {
 				String className = entry.getKey();
+				System.out.println("Current class is: " + className);
 				byte[] classfileBuffer = entry.getValue();
 		
 				if(containsGeneratedClassName(className)) {

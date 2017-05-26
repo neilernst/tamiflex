@@ -16,8 +16,8 @@ import java.util.Map;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.commons.ClassRemapper;
 import org.objectweb.asm.commons.Remapper;
-import org.objectweb.asm.commons.RemappingClassAdapter;
 
 import de.bodden.tamiflex.normalizer.ClassRenamer.NoHashedNameException;
 
@@ -39,8 +39,9 @@ public class Hasher {
 		"GeneratedSerializationConstructorAccessor",
 		"ByCGLIB",
 		"org/apache/derby/exe/",
-		"$Proxy" /*,
-		"schemaorg_apache_xmlbeans/system/" these names seem to be stable, as they are already hashed */
+		"LambdaForm$",
+		//"Proxy$"
+		//"schemaorg_apache_xmlbeans/system/" these names seem to be stable, as they are already hashed */
 	};
 	
 	public static void dontNormalize() {
@@ -56,14 +57,14 @@ public class Hasher {
 		assert containsGeneratedClassName(theClassName) : "Class "+theClassName+" contains no generated name.";
 		ClassReader creader = new ClassReader(classBytes);
     	ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
-    	RemappingClassAdapter visitor = new RemappingClassAdapter(writer,new Remapper(){
+    	ClassRemapper visitor = new ClassRemapper(writer,new Remapper(){
     		
     		@Override
     		public String map(String typeName) {
     			if(theClassName.equals(typeName)) return "$$$NORMALIZED$$$";
     			String newName = generatedClassNameToHashedClassName.get(typeName);
 				if(Hasher.containsGeneratedClassName(typeName) && newName==null) {
-    				throw new NoHashedNameException(typeName);
+    				//throw new NoHashedNameException(typeName);
     			}
     			if(newName!=null) typeName = newName;
     			return super.map(typeName);
@@ -102,6 +103,7 @@ public class Hasher {
 		String hash = SHAHash.SHA1(renamed);
 		for(String infix: instableNames) {
 			if(theClassName.contains(infix)) {
+				System.err.println("++++++++\n"+ theClassName);
 				String hashedName = theClassName.substring(0, theClassName.indexOf(infix)+infix.length()) + "$HASHED$" + hash;
 				
 				assert !generatedClassNameToHashedClassName.containsKey(theClassName)

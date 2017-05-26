@@ -46,14 +46,14 @@ public class Agent {
 	private static String transformations = "";
 	private static Socket socket;
 
-	
-	public static void premain(String agentArgs, Instrumentation inst) throws IOException, ClassNotFoundException, UnmodifiableClassException, URISyntaxException, InterruptedException {
+	public static void premain(String agentArgs, Instrumentation inst) throws IOException, ClassNotFoundException,
+			UnmodifiableClassException, URISyntaxException, InterruptedException {
 		if(!inst.isRetransformClassesSupported()) {
 			throw new RuntimeException("retransformation not supported");
 		}
 		
-		System.out.println("============================================================");
-		System.out.println("TamiFlex Play-Out Agent Version "+Agent.class.getPackage().getImplementationVersion());
+		System.err.println("============================================================");
+		System.err.println("TamiFlex Play-Out Agent Version "+Agent.class.getPackage().getImplementationVersion());
 
 		loadProperties();		
 		
@@ -221,6 +221,7 @@ public class Agent {
 		inst.addTransformer(classDumper, CAN_RETRANSFORM);
 		//dump all classes that are already loaded
 		for (Class<?> c : inst.getAllLoadedClasses()) {
+			System.err.println(c.getName());
 			if(inst.isModifiableClass(c)) {
 				inst.retransformClasses(c);
 			} else {
