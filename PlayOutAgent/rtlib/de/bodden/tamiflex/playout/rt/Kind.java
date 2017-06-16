@@ -10,7 +10,7 @@
  ******************************************************************************/
 package de.bodden.tamiflex.playout.rt;
 
-import de.bodden.tamiflex.playout.transformation.method.GuiceBindMethodTransformation;
+import de.bodden.tamiflex.playout.transformation.Guice.GuiceBindMethodTransformation;
 
 public enum Kind {
 

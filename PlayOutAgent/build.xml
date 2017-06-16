@@ -29,6 +29,7 @@
             <classpath>
                 <pathelement location="poa-rt.jar"/>
                 <pathelement location="lib/ant.jar"/>
+                <pathelement location="lib/guice-4.1.0.jar"/>
                 <pathelement location="../Normalizer/lib/asm-5.2.jar"/>
                 <pathelement location="../Normalizer/lib/asm-commons-5.2.jar"/>
             </classpath>
@@ -42,7 +43,8 @@
            <attribute name="Premain-Class" value="de.bodden.tamiflex.playout.Agent"/>
            <attribute name="Main-Class" value="de.bodden.tamiflex.playout.Agent"/>
            <attribute name="Can-Retransform-Classes" value="true"/>
-           <attribute name="Implementation-Version" value="${tf.version}"/> 
+           <attribute name="Implementation-Version" value="${tf.version}"/>
+           <attribute name="Boot-Class-Path" value="guava-22.0.jar:guice-4.1.0.jar:javax.inject.jar:aopalliance.jar" />
        </manifest>
 
         <jar destfile="poa-${tf.version}.jar" manifest="META-INF/MANIFEST.MF">
