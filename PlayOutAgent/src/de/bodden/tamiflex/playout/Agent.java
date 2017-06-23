@@ -221,7 +221,8 @@ public class Agent {
 		inst.addTransformer(classDumper, CAN_RETRANSFORM);
 		//dump all classes that are already loaded
 		for (Class<?> c : inst.getAllLoadedClasses()) {
-			System.err.println(c.getName());
+			if(verbose)
+				System.err.println(c.getName());
 			if(inst.isModifiableClass(c)) {
 				inst.retransformClasses(c);
 			} else {

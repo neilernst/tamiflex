@@ -32,6 +32,7 @@ public class GuiceBindMethodTransformation extends AbstractTransformation {
             public void visitInsn(int opcode) {
 
                 if (IRETURN <= opcode && opcode <= RETURN) {
+                    System.out.println("in Guice!");
                     mv.visitInsn(ACONST_NULL); //ignore first argument to method methodMethodInvoke
                     mv.visitVarInsn(ALOAD, 0); // Load Method instance
                     mv.visitFieldInsn(GETSTATIC, "de/bodden/tamiflex/playout/rt/Kind", methodKind().name(), Type.getDescriptor(Kind.class));
